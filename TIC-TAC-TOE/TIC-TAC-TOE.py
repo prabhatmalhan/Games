@@ -1,24 +1,12 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# # Tic Tac Toe
-
-# In[1]:
-
-
 players=['','X','O']
 Board=[' ']*10
 score=['',0,0]
-
-
-# In[2]:
 
 
 from IPython.display import clear_output
 
 def display_board(board):
     
-    clear_output()
     print(f'   |   |')
     print(f' {board[7]} | {board[8]} | {board[9]}')
     print(f'---|---|---')
@@ -26,9 +14,6 @@ def display_board(board):
     print(f'---|---|---')
     print(f' {board[1]} | {board[2]} | {board[3]}')
     print(f'   |   |')
-
-
-# In[3]:
 
 
 def player_input():
@@ -42,14 +27,10 @@ def player_input():
     return (play1,play2)
 
 
-# In[4]:
-
 
 def place_marker(board, marker, position):
     board[position]=marker
 
-
-# In[5]:
 
 
 def win_check(board, mark):
@@ -63,8 +44,6 @@ def win_check(board, mark):
     (board[9] ==  board[5] ==  board[1] == mark))
 
 
-# In[6]:
-
 
 import random
 
@@ -72,21 +51,14 @@ def choose_first():
     return random.choice((-1,1))
 
 
-# In[7]:
-
 
 def space_check(board, position):
     return board[position]==' '
 
 
-# In[8]:
-
 
 def full_board_check(board):
     return not ' ' in board[1:]
-
-
-# In[9]:
 
 
 def player_choice(board,player):
@@ -99,14 +71,9 @@ def player_choice(board,player):
     return pos
 
 
-# In[10]:
-
-
 def replay():
     return input('Do you want to play again (Yes/No) : ').lower()=='yes'
 
-
-# In[11]:
 
 
 def gridfor():
@@ -119,16 +86,11 @@ def gridfor():
     print(f'   |   |')
 
 
-# In[12]:
-
-
 def scorepr():
     print (f'Player 1 : {score[1]}')
     print (f'Player 2 : {score[2]}')
-
-
-# In[14]:
-
+    
+    
 
 print('Welcome to Tic Tac Toe!')
 print ('\ngrid format : ')
