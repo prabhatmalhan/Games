@@ -127,6 +127,9 @@ def game_begin():
     si.onkeypress(move_left, "Left")
     si.onkeypress(move_right, "Right")
     si.onkeypress(fire, "space")
+    si.onclick(lambda x,y : move_left(),1)
+    si.onclick(lambda x,y : move_right(),3)
+    si.onclick(lambda x,y : fire(),2)
 
     alien_number = 5
     aliens = []
