@@ -80,10 +80,11 @@ class Board :
 			if des.iswin(self.board,self.player[self.ind]) :
 				Drawing.printres(self.player[self.ind])
 				self.onRun = False
+				restart()
 				return
 			elif des.isdraw(self.board) :
 				Drawing.printres("draw")
-				self.onRun = False
+				restart()
 				return
 
 			self.ac = -self.ac
@@ -185,6 +186,29 @@ class Decision :
 				return False
 		return True
 
+
+def restart() :
+	pen = turtle.Turtle()
+	pen.hideturtle()
+	pen.pensize(20)
+	pen.penup()
+	pen.speed(0)
+	pen.color("red")
+	pen.setposition(-300,-350)
+	pen.pendown()
+	pen.write("!!! PRESS ENTER TO REPLAY !!!", False, align="center", font=("Comic Sans MS", 20, "bold"))
+	pen.penup()
+	pen.setposition(300,-350)
+	pen.pendown()
+	pen.write("!!! PRESS Space TO EXIT !!!", False, align="center", font=("Comic Sans MS", 20, "bold"))
+	src = turtle.Screen()
+	src.listen()
+	src.onkeypress(src.bye,"space")
+	src.onkeypress(cleaning,"Return")
+
+def cleaning() :
+	turtle.Screen().clear()
+	start_game()
 
 if __name__ == "__main__" : 
 	start_game()
