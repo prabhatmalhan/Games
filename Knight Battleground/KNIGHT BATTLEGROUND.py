@@ -28,7 +28,7 @@ for i in range(4):
     intro.forward(630)
     intro.left(90)
 intro.hideturtle()
-gunstate="passive"
+swordstate="passive"
 intro.penup()
 intro.speed(0.5)
 intro.color("turquoise")
@@ -49,7 +49,7 @@ intro.write("!!!press enter to play!!!", True, align="center", font=("Comic Sans
 
 def game_begin():
 
-    global gunstate
+    global swordstate
     pygame.mixer.music.stop()
     pygame.mixer.music.load('sounds/back.mp3')
     pygame.mixer.music.play(100)
@@ -75,13 +75,13 @@ def game_begin():
         border_pen.left(90)
     border_pen.hideturtle()
 
-    ship = turtle.Turtle()
-    ship.shape("images/ZCi.gif")
-    ship.penup()
-    ship.speed(0)
-    ship.setposition(0, -252)
-    ship.setheading(90)
-    ship.speed = 0
+    knight = turtle.Turtle()
+    knight.shape("images/ZCi.gif")
+    knight.penup()
+    knight.speed(0)
+    knight.setposition(0, -252)
+    knight.setheading(90)
+    knight.speed = 0
 
     score = 0
     score_pen = turtle.Turtle()
@@ -94,27 +94,27 @@ def game_begin():
     score_pen.hideturtle()
 
     def move_left():
-        ship.speed = -10
+        knight.speed = -10
 
     def move_right():
-        ship.speed = 10 
+        knight.speed = 10 
 
-    def move_ship():
-        x = ship.xcor()
-        x += ship.speed
+    def move_knight():
+        x = knight.xcor()
+        x += knight.speed
         if x > 278:
             x = 278
         if x < -278:
             x = -278
-        ship.setx(x)
+        knight.setx(x)
 
     def fire():
-        global gunstate
-        if gunstate == "passive":
-            gunstate = "active"
+        global swordstate
+        if swordstate == "passive":
+            swordstate = "active"
             winsound.PlaySound("sounds/fire.wav", winsound.SND_ASYNC)
-            gun.setposition(ship.xcor(), ship.ycor() + 10)
-            gun.showturtle()
+            sword.setposition(knight.xcor(), knight.ycor() + 10)
+            sword.showturtle()
 
     def isCollision(t1, t2):
         dist = math.sqrt(math.pow(t1.xcor() - t2.xcor(), 2) + math.pow(t1.ycor() - t2.ycor(), 2))
@@ -131,75 +131,75 @@ def game_begin():
     si.onclick(lambda x,y : move_right(),3)
     si.onclick(lambda x,y : fire(),2)
 
-    alien_number = 5
-    aliens = []
-    for i in range(alien_number):
-        aliens.append(turtle.Turtle())
-    for alien in aliens:
-        alien.penup()
-        alien.speed(0)
-        alien.shape("images/enemy.gif")
-        alien.setposition(random.randint(-250, 250), random.randint(180, 260))
-    alienspeed = 2
+    enemy_number = 5
+    enemies = []
+    for i in range(enemy_number):
+        enemies.append(turtle.Turtle())
+    for enemy in enemies:
+        enemy.penup()
+        enemy.speed(0)
+        enemy.shape("images/enemy.gif")
+        enemy.setposition(random.randint(-250, 250), random.randint(180, 260))
+    knightspeed = 2
 
-    gun = turtle.Turtle()
-    gun.shape("images/sword.gif")
-    gun.penup()
-    gun.speed(0)
-    gun.setposition(0, -400)
-    gun.hideturtle()
-    gunspeed = 30
+    sword = turtle.Turtle()
+    sword.shape("images/sword.gif")
+    sword.penup()
+    sword.speed(0)
+    sword.setposition(0, -400)
+    sword.hideturtle()
+    swordspeed = 30
 
 
     while True:
         flag = 0
-        move_ship()
-        for alien in aliens:
-            x = alien.xcor()
-            x += alienspeed
-            alien.setx(x)
+        move_knight()
+        for enemy in enemies:
+            x = enemy.xcor()
+            x += enemyspeed
+            enemy.setx(x)
 
             if x > 280:
-                alienspeed *= -1
-                for a in aliens:
-                    a.sety(a.ycor() - 40)
-                    if a.ycor() < ship.ycor():
+                enemyspeed *= -1
+                for e in enemies:
+                    e.sety(e.ycor() - 40)
+                    if e.ycor() < knight.ycor():
                         flag = 1
                         si.clear()
                         break
             if x < -280:
-                alienspeed *= -1
-                for a in aliens:
-                    a.sety(a.ycor() - 40)
-                    if a.ycor() < ship.ycor():
+                enemyspeed *= -1
+                for e in enemies:
+                    e.sety(e.ycor() - 40)
+                    if e.ycor() < knight.ycor():
                         flag = 1
                         si.clear()
                         break
-            if isCollision(gun, alien):
+            if isCollision(sword, enemy):
                 winsound.PlaySound("sounds/kill.wav", winsound.SND_ASYNC)
-                gun.hideturtle()
-                gunstate = "passive"
-                gun.setposition(0, -400)
-                alien.setposition(random.randint(-200, 200), random.randint(200, 280))
+                sword.hideturtle()
+                swordstate = "passive"
+                sword.setposition(0, -400)
+                enemy.setposition(random.randint(-200, 200), random.randint(200, 280))
                 score += 10
                 scorestring = "Score: {}".format(score)
                 score_pen.clear()
                 score_pen.write(scorestring, False, align="left", font=("Arial", 14, "normal"))
                 score_pen.hideturtle()
-                alienspeed += 0.25 if alienspeed > 0 else -0.25
+                enemyspeed += 0.25 if enemyspeed > 0 else -0.25
 
-            if isCollision(ship, alien):
-                ship.hideturtle()
+            if isCollision(knight, enemy):
+                knight.hideturtle()
                 flag = 1
                 si.clear()
                 break
 
-        if gunstate == "active":
-            gun.sety(gun.ycor() + gunspeed)
+        if swordstate == "active":
+            sword.sety(sword.ycor() + swordspeed)
 
-        if gun.ycor() > 280:
-            gun.hideturtle()
-            gunstate = "passive"
+        if sword.ycor() > 280:
+            sword.hideturtle()
+            swordstate = "passive"
 
         if flag == 1:
             break
