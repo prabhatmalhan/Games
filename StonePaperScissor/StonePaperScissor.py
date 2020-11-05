@@ -181,19 +181,23 @@ def restart() :
 	penx.write("!!! PRESS Space TO EXIT !!!", False, align="center", font=("Comic Sans MS", 20, "bold"))
 	src = turtle.Screen()
 	src.listen()
-	src.onkeypress(src.bye,"space")
+	src.onkeypress(end,"space")
 	src.onkeypress(cleaning,"Return")
 
+def end() :
+	if r.gameon==False : 
+		src.bye() 
 
 def cleaning() :
-	r.score[0]=0
-	r.score[1]=0
-	r.gameon=True
-	penx.clear()
-	dec.clear()
-	computer.hideturtle()
-	player.hideturtle()
-	score_update()
+	if r.gameon == False :
+		r.score[0]=0
+		r.score[1]=0
+		r.gameon=True
+		penx.clear()
+		dec.clear()
+		computer.hideturtle()
+		player.hideturtle()
+		score_update()
 
 
 #start game
