@@ -11,6 +11,7 @@ def start_game() :
 	
 	#setting up screen
 	sc=turtle.Screen()
+	sc.setup(width=1.0,height=1.0)
 	sc.bgcolor("black")
 	sc.title("TIC-TAC-TOE")
 	sc.bgpic("back.gif")
