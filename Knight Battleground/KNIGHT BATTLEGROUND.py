@@ -10,6 +10,7 @@ pygame.mixer.music.play(100)
 
 
 front = turtle.Screen()
+front.setup(width=1.0,height=1.0)
 front.bgcolor("black")
 front.title("KNIGHT BATTLEGROUND")
 front.bgpic("images/back.gif")
@@ -79,7 +80,7 @@ def game_begin():
         knight.shape("images/ZCi.gif")
         knight.penup()
         knight.speed(0)
-        knight.setposition(0, -219)
+        knight.setposition(0, -253)
         knight.setheading(90)
         knight.speed = 0
 
